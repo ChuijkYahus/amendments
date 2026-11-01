@@ -173,8 +173,7 @@ public class PendulumAnimation extends SwingAnimation {
         Vec3 normalVec = rotationAxis.cross(new Vec3(0, 1, 0));
 
         //vector in 2d space. y and z
-        Vec3 entityPlaneVector = eVel.subtract(eVel.multiply(rotationAxis.multiply(rotationAxis)));
-
+        //Vec3 entityPlaneVector = eVel.subtract(eVel.multiply(rotationAxis.multiply(rotationAxis)));
 
         float radius = 1;
         double magnitude = angularVel * radius;
@@ -188,11 +187,10 @@ public class PendulumAnimation extends SwingAnimation {
 
         if (eRelVel * eRelVel < 0.0001) return false;//too little
 
-        double entityForwardMotion;
-        if (normalVec.z != 0) {
-            entityForwardMotion = entityPlaneVector.z;
-        } else entityForwardMotion = entityPlaneVector.x;
-
+        //double entityForwardMotion;
+        //if (normalVec.z != 0) {
+        //    entityForwardMotion = entityPlaneVector.z;
+        //} else entityForwardMotion = entityPlaneVector.x;
 
         double v = magnitude;
 
@@ -219,14 +217,14 @@ public class PendulumAnimation extends SwingAnimation {
         float dW = (float) (x / radius) - angularVel;
 
         //dont even ask me whats going on here. needed to handle all the faces
-        if (eRelVel < 0 ^ entityForwardMotion < 0) {
-            dW *= -1;
-        }
-        boolean invertedAxis = (normalVec.z < 0 || normalVec.x < 0);
+        //if (eRelVel < 0 ^ entityForwardMotion < 0) {
+        //    dW *= -1;
+        //}
+        //boolean invertedAxis = (normalVec.z < 0 || normalVec.x < 0);
 
-        if (invertedAxis) {
-            dW *= -1;
-        }
+        //if (invertedAxis) {
+        //    dW *= -1;
+        //}
         this.lastImpulse = dW;
         this.immunity = 10;
 
