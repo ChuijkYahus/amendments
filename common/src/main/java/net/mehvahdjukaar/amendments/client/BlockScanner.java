@@ -4,7 +4,10 @@ import com.google.common.collect.ImmutableSet;
 import net.mehvahdjukaar.amendments.Amendments;
 import net.mehvahdjukaar.amendments.integration.CompatHandler;
 import net.mehvahdjukaar.amendments.integration.FarmersDelightCompat;
+import net.mehvahdjukaar.amendments.integration.CompatObjects;
 import net.mehvahdjukaar.amendments.integration.SuppCompat;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TorchBlock;
@@ -34,7 +37,7 @@ public class BlockScanner {
         ImmutableSet.Builder<Block> candleBuilder = ImmutableSet.builder();
         ImmutableSet.Builder<Block> fdSignsBuilder = ImmutableSet.builder();
 
-        for (Block block : net.minecraft.core.registries.BuiltInRegistries.BLOCK) {
+        for (Block block : BuiltInRegistries.BLOCK) {
             if (block instanceof TorchBlock && !(block instanceof WallTorchBlock) || (
                     CompatHandler.SUPPLEMENTARIES && SuppCompat.isSconce(block))) {
                 torchesBuilder.add(block);
@@ -45,6 +48,9 @@ public class BlockScanner {
             }
         }
         torchesBuilder.add(Blocks.REDSTONE_TORCH);
+        if (CompatObjects.GLOW_INK_TORCH.get() instanceof BlockItem bi) {
+            torchesBuilder.add(bi.getBlock());
+        }
         torches = torchesBuilder.build();
         candleHolders = candleBuilder.build();
         fdSigns = fdSignsBuilder.build();

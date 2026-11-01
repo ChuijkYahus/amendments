@@ -36,6 +36,7 @@ public class CompatObjects {
 
     public static final Supplier<Item> SCONCE_LEVER = make("supplementaries:sconce_lever", BuiltInRegistries.ITEM);
     public static final Supplier<Item> SCONCE = make("supplementaries:sconce", BuiltInRegistries.ITEM);
+    public static final Supplier<Item> GLOW_INK_TORCH = make("torchesinwater:glow_ink_torch", BuiltInRegistries.ITEM);
 
 
     public static final Supplier<ParticleType<?>> SMALL_SOUL_FLAME = make("buzzier_bees:small_soul_fire_flame", BuiltInRegistries.PARTICLE_TYPE);

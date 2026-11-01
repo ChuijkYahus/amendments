@@ -27,7 +27,7 @@ public class SparklerRendererExtension extends TorchRendererExtension {
     //the lit texture has no spark baked in like torches do
     @Override
     protected boolean hasFlame(LivingEntity entity) {
-        return true;
+        return !entity.isInWater();
     }
 
     @Override

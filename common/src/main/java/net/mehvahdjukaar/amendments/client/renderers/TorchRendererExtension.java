@@ -36,16 +36,23 @@ public class TorchRendererExtension implements IThirdPersonAnimationProvider, IT
 
     private static final Vec3 TORCH_PARTICLE_OFFSET = new Vec3(0, 0.16, 0);
 
-    private final BlockState heldState;
+
+    private final BlockState litState;
+    private final BlockState offState;
+    private final boolean burns;
     private final ResourceLocation flameTexture;
 
     public TorchRendererExtension(Item item) {
         Item modelItem = item == CompatObjects.SCONCE_LEVER.get() ? CompatObjects.SCONCE.get() : item;
         BlockState state = ((BlockItem) modelItem).getBlock().defaultBlockState();
+        this.burns = item != CompatObjects.GLOW_INK_TORCH.get();
         if (state.hasProperty(BlockStateProperties.LIT)) {
-            state = state.setValue(BlockStateProperties.LIT, true);
+            this.litState = state.setValue(BlockStateProperties.LIT, true);
+            this.offState = burns ? state.setValue(BlockStateProperties.LIT, false) : this.litState;
+        } else {
+            this.litState = state;
+            this.offState = state;
         }
-        this.heldState = state;
 
         this.flameTexture = HeldItemRenderUtils.getFlameTexture(Utils.getID(item));
     }
@@ -91,7 +98,7 @@ public class TorchRendererExtension implements IThirdPersonAnimationProvider, IT
 
             poseStack.translate(0, 3 / 16f, 2 / 16f);
 
-            renderTorchModel(stack, poseStack, bufferSource, light, left);
+            renderTorchModel(entity, poseStack, bufferSource, light);
 
             if (hasFlame(entity)) {
                 renderFlame(entity, poseStack, bufferSource, HeldItemRenderUtils.getCameraBillboardRotation());
@@ -101,13 +108,12 @@ public class TorchRendererExtension implements IThirdPersonAnimationProvider, IT
         }
     }
 
-    private void renderTorchModel(ItemStack itemStack, PoseStack poseStack,
-                                  MultiBufferSource buffer, int light, boolean left) {
-        HeldItemRenderUtils.renderBlockModelAsItem(itemStack, heldState, poseStack, buffer, light, left);
+    private void renderTorchModel(LivingEntity entity, PoseStack poseStack, MultiBufferSource buffer, int light) {
+        HeldItemRenderUtils.renderBlockModel(entity.isInWater() ? offState : litState, poseStack, buffer, light);
     }
 
     protected boolean hasFlame(LivingEntity entity) {
-        return ClientConfigs.TORCH_HOLDING_FLAME.get() && !entity.isInWater();
+        return burns && ClientConfigs.TORCH_HOLDING_FLAME.get() && !entity.isInWater();
     }
 
     protected void renderFlame(LivingEntity entity, PoseStack poseStack, MultiBufferSource buffer,
@@ -144,7 +150,9 @@ public class TorchRendererExtension implements IThirdPersonAnimationProvider, IT
 
         poseStack.scale(scale, scale, scale);
 
-        renderTorchModel(stack, poseStack, buffer, light, left);
+        // renderTorchModel(stack, poseStack, buffer, light, left);
+
+        renderTorchModel(player, poseStack, buffer, light);
 
         if (hasFlame(player)) {
             renderFlame(player, poseStack, buffer, HeldItemRenderUtils.getHandBillboardRotation());

@@ -5,10 +5,12 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.mehvahdjukaar.moonlight.api.client.util.VertexUtil;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -138,5 +140,15 @@ public class HeldItemRenderUtils {
         BakedModel model = mc.getBlockRenderer().getBlockModel(state);
         mc.getItemRenderer().render(stack, ItemDisplayContext.NONE, left, poseStack,
                 buffer, light, OverlayTexture.NO_OVERLAY, model);
+    }
+
+    public static void renderBlockModel(BlockState state, PoseStack poseStack, MultiBufferSource buffer, int light) {
+        BlockRenderDispatcher dispatcher = Minecraft.getInstance().getBlockRenderer();
+        poseStack.pushPose();
+        poseStack.translate(-0.5F, -0.5f, -0.5f);
+        dispatcher.getModelRenderer().renderModel(poseStack.last(),
+                buffer.getBuffer(ItemBlockRenderTypes.getRenderType(state, true)),
+                state, dispatcher.getBlockModel(state), 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
+        poseStack.popPose();
     }
 }
