@@ -58,7 +58,7 @@ public class HangingSignTileExtension {
         return state.hasProperty(WallHangingSignBlock.FACING) ?
                 state.getValue(WallHangingSignBlock.FACING).getClockWise().step() :
                 new Vector3f(0, 0, 1).rotateY(Mth.DEG_TO_RAD *
-                        (90 + RotationSegment.convertToDegrees(state.getValue(CeilingHangingSignBlock.ROTATION))));
+                        (-90 - RotationSegment.convertToDegrees(state.getValue(CeilingHangingSignBlock.ROTATION))));
     }
 
 
