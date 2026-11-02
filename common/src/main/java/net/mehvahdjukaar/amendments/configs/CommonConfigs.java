@@ -91,6 +91,9 @@ public class CommonConfigs {
 
     public static final Supplier<Boolean> PASSENGER_NO_SUFFOCATION;
     public static final Supplier<Boolean> PETS_FOLLOW_TELEPORTS;
+    public static final Supplier<Boolean> SURFACE_SWIMMING;
+    public static final Supplier<Boolean> SURFACE_AUTO_FLOAT;
+    public static final Supplier<Boolean> WATER_JUMP_NEEDS_DEPTH;
 
     public static final Supplier<Boolean> FENCES_TO_WALLS_AND_BARS;
     public static final Supplier<Boolean> WOODEN_TO_NETHER_FENCES;
@@ -241,6 +244,16 @@ public class CommonConfigs {
 
         PETS_FOLLOW_TELEPORTS = builder.icon("minecraft:bone").comment("Following pets teleport with you instantly when you teleport")
                 .define("pets_follow_teleports", true);
+
+        builder.push("threading_water_swim")
+                .icon("minecraft:water_bucket");
+        SURFACE_SWIMMING = builder
+                .comment("Holding jump in water keeps players at the surface with their head out instead of bobbing up and down")
+                .define("surface_swimming", true);
+        SURFACE_AUTO_FLOAT = builder.comment("Float at the surface automatically, without holding jump. Sneak to dive")
+                .define("surface_auto_float", false);
+        WATER_JUMP_NEEDS_DEPTH = builder.comment("Makes players able to only push themselves up in water when they deep enough in water up to their chest or next to a ledge")
+                .define("water_jump_needs_depth", true);
 
         builder.pop();
 

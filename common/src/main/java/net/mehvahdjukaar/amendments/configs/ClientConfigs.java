@@ -54,6 +54,8 @@ public class ClientConfigs {
     public static final Supplier<Boolean> HOLDING_ANIMATION_FIXED;
     public static final Supplier<Boolean> CAMPFIRE_SMOKE;
     public static final Supplier<Boolean> TRADE_BUTTONS;
+    public static final Supplier<Boolean> SURFACE_SWIM_ANIMATION;
+    public static final Supplier<Boolean> SURFACE_SWIM_LEG_SPLAY;
     public static final Supplier<Double> HOTBAR_SLOT_ANIMATION_SPEED;
     public static final Supplier<Boolean> HOTBAR_SLOT_ANIMATION_WRAP;
     public static final Supplier<OpaqueBehavior> HOTBAR_SLOT_OPAQUE_BEHAVIOR;
@@ -245,6 +247,14 @@ public class ClientConfigs {
 
         TRADE_BUTTONS = builder.icon("minecraft:emerald").comment("Gives the villager trade buttons the same look loom and stonecutter buttons have")
                 .define("villager_trade_buttons", true);
+
+        builder.push("threading_water_swim");
+        SURFACE_SWIM_ANIMATION = builder.icon("minecraft:water_bucket")
+                .comment("Players and humanoid mobs move their arms and legs like swimming when upright in water")
+                .mainFeature();
+        SURFACE_SWIM_LEG_SPLAY = builder.comment("Spread legs a bit sideways while swimming upright")
+                .define("leg_splay", false);
+        builder.pop();
 
         builder.push("hotbar_slot_animation");
         HOTBAR_SLOT_ANIMATION_SPEED = builder.comment("Makes the selected hotbar slot slide to its new position. Higher is faster, 0 for vanilla behavior")
