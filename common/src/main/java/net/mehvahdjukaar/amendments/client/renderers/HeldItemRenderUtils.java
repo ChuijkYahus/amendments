@@ -10,12 +10,14 @@ import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
@@ -26,6 +28,9 @@ import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HeldItemRenderUtils {
 
@@ -142,13 +147,36 @@ public class HeldItemRenderUtils {
                 buffer, light, OverlayTexture.NO_OVERLAY, model);
     }
 
+    //like chunk does so most accurate
     public static void renderBlockModel(BlockState state, PoseStack poseStack, MultiBufferSource buffer, int light) {
-        BlockRenderDispatcher dispatcher = Minecraft.getInstance().getBlockRenderer();
+        BakedModel model = Minecraft.getInstance().getBlockRenderer().getBlockModel(state);
+        RandomSource random = RandomSource.create();
+        List<BakedQuad> unshadedQuads = new ArrayList<>();
+
         poseStack.pushPose();
+        //var dispatcher = Minecraft.getInstance().getBlockRenderer();
+        //dispatcher.renderSingleBlock(state, poseStack, buffer, light, OverlayTexture.NO_OVERLAY);
         poseStack.translate(-0.5F, -0.5f, -0.5f);
-        dispatcher.getModelRenderer().renderModel(poseStack.last(),
-                buffer.getBuffer(ItemBlockRenderTypes.getRenderType(state, true)),
-                state, dispatcher.getBlockModel(state), 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
+        PoseStack.Pose pose = poseStack.last();
+        VertexConsumer shaded = buffer.getBuffer(ItemBlockRenderTypes.getRenderType(state, true));
+        for (Direction dir : DIRECTIONS_AND_NULL) {
+            random.setSeed(42L);
+            for (BakedQuad quad : model.getQuads(state, dir, random)) {
+                if (quad.isShade()) {
+                    shaded.putBulkData(pose, quad, 1, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
+                } else unshadedQuads.add(quad);
+            }
+        }
+
+        if (!unshadedQuads.isEmpty()) {
+            VertexConsumer unshaded = buffer.getBuffer(ItemBlockRenderTypes.getMovingBlockRenderType(state));
+            for (BakedQuad quad : unshadedQuads) {
+                unshaded.putBulkData(pose, quad, 1, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
+            }
+        }
         poseStack.popPose();
     }
+
+    private static final Direction[] DIRECTIONS_AND_NULL = {Direction.DOWN, Direction.UP, Direction.NORTH,
+            Direction.SOUTH, Direction.WEST, Direction.EAST, null};
 }
