@@ -15,6 +15,7 @@ import net.minecraft.client.model.HeadedModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransform;
 import net.minecraft.resources.ResourceLocation;
@@ -109,7 +110,11 @@ public class TorchRendererExtension implements IThirdPersonAnimationProvider, IT
     }
 
     private void renderTorchModel(LivingEntity entity, PoseStack poseStack, MultiBufferSource buffer, int light) {
-        HeldItemRenderUtils.renderBlockModel(entity.isInWater() ? offState : litState, poseStack, buffer, light);
+        boolean doused = burns && entity.isInWater();
+        BlockState state = entity.isInWater() ? offState : litState;
+        int selfLight = doused ? 0 : state.getLightEmission();
+        int blockLight = Math.max(LightTexture.block(light), selfLight);
+        HeldItemRenderUtils.renderBlockModel(state, poseStack, buffer, LightTexture.pack(blockLight, LightTexture.sky(light)));
     }
 
     protected boolean hasFlame(LivingEntity entity) {
