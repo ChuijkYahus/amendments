@@ -95,7 +95,12 @@ public class RedstoneWallLanternBlock extends WallLanternBlock {
 
     @Override
     protected int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction side) {
-        return state.getValue(LIT) && side.getAxis().isHorizontal() && side != state.getValue(FACING) ? 15 : 0;
+        return state.getValue(LIT) && side != Direction.DOWN && side != state.getValue(FACING) ? 15 : 0;
+    }
+
+    @Override
+    protected int getDirectSignal(BlockState state, BlockGetter level, BlockPos pos, Direction side) {
+        return side == Direction.UP ? state.getSignal(level, pos, side) : 0;
     }
 
     @Override
