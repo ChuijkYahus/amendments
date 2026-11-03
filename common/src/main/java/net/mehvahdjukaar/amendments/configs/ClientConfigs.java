@@ -11,6 +11,7 @@ import net.mehvahdjukaar.moonlight.api.set.wood.WoodType;
 import net.mehvahdjukaar.moonlight.api.set.wood.WoodTypeRegistry;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.HashSet;
 import java.util.List;
@@ -34,6 +35,7 @@ public class ClientConfigs {
     public static final Supplier<Boolean> POTION_TEXTURE;
     public static final Supplier<Boolean> JUKEBOX_MODEL;
     public static final Supplier<Boolean> JUKEBOX_SPIN;
+    public static final Supplier<Vec3> JUKEBOX_SPIN_PIVOT;
     public static final Supplier<Boolean> TEXTURE_PACK_SUPPORT;
     public static final Supplier<GenMode> DYNAMIC_ASSETS_GEN_MODE;
 
@@ -222,6 +224,8 @@ public class ClientConfigs {
                 .define("new_model", true);
         JUKEBOX_SPIN = builder.comment("Makes jukebox disc spin while playing")
                 .define("disc_spin", true);
+        JUKEBOX_SPIN_PIVOT = builder.comment("Pivot point the disc spins around, in pixels from the block corner")
+                .defineVec3("disc_spin_pivot", new Vec3(8, 15.25, 8), 0, 16);
         builder.pop();
 
         builder.icon("minecraft:bundle").push("misc");

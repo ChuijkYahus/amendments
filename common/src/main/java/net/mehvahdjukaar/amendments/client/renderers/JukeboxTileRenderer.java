@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.world.level.block.JukeboxBlock;
 import net.minecraft.world.level.block.entity.JukeboxBlockEntity;
+import net.minecraft.world.phys.Vec3;
 
 public class JukeboxTileRenderer implements BlockEntityRenderer<JukeboxBlockEntity> {
 
@@ -29,10 +30,16 @@ public class JukeboxTileRenderer implements BlockEntityRenderer<JukeboxBlockEnti
         var item = blockEntity.getTheItem();
 
         if (!item.isEmpty() && blockEntity.getBlockState().getValue(JukeboxBlock.HAS_RECORD)) {
-            poseStack.translate(0.5, 15.25 / 16f, 0.5);
-
             if (ClientConfigs.JUKEBOX_SPIN.get()) {
+                Vec3 pivot = ClientConfigs.JUKEBOX_SPIN_PIVOT.get();
+                poseStack.translate(pivot.x / 16, pivot.y / 16, pivot.z / 16);
                 poseStack.mulPose(Axis.YP.rotationDegrees(((IBetterJukebox) blockEntity).amendments$getRotation(partialTick)));
+                poseStack.translate((8 - pivot.x) / 16, (15.25 - pivot.y) / 16, (8 - pivot.z) / 16);
+            } else {
+                if (ClientConfigs.JUKEBOX_MODEL.get()) {
+                    // poseStack.translate(0, -0.5 / 16f, 0);
+                }
+                poseStack.translate(0.5, 15.25 / 16f, 0.5);
             }
             poseStack.mulPose(RotHlpr.X90);
 
