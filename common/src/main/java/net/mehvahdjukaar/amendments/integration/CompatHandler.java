@@ -24,6 +24,7 @@ public class CompatHandler {
     public static final boolean FLYWHEEL = PlatHelper.isModLoaded("flywheel") && false;
     public static final boolean ENVIRONMENTAL = PlatHelper.isModLoaded("environmental");
     public static final boolean POLYTONE = PlatHelper.isModLoaded("polytone");
+    public static final boolean SHADOW_DROP = PlatHelper.isModLoaded("shadowdrop");
 
     static {
         boolean fd = false;

@@ -7,6 +7,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.mehvahdjukaar.amendments.client.HotbarSelectionAnimation;
 import net.mehvahdjukaar.amendments.configs.ClientConfigs;
 import net.mehvahdjukaar.amendments.configs.OpaqueBehavior;
+import net.mehvahdjukaar.amendments.integration.CompatHandler;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
@@ -44,7 +45,8 @@ public abstract class GuiMixin {
         if (wrappingOverEdge) graphics.enableScissor(barLeft, y, barLeft + 184, y + height);
         PoseStack pose = graphics.pose();
         pose.pushPose();
-        pose.translate(offset, 0, opaque && opaqueBehavior == OpaqueBehavior.IN_BACKGROUND ? 0 : 270);
+        float frontZ = CompatHandler.SHADOW_DROP ? 285 : 270; //shadow drop pushes items 32 forward
+        pose.translate(offset, 0, opaque && opaqueBehavior == OpaqueBehavior.IN_BACKGROUND ? 0 : frontZ);
         original.call(graphics, sprite, x, y, width, height);
         if (wrappingOverEdge) {
             pose.translate(-180, 0, 0);

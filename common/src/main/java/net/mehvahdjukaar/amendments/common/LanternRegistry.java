@@ -29,6 +29,7 @@ public class LanternRegistry extends BlockTypeRegistry<LanternRegistry.LanternTy
                 "waxed_weathered_copper_lantern", "waxed_oxidized_copper_lantern")) {
             SPECIAL_OFFSETS.put(ResourceLocation.fromNamespaceAndPath("caverns_and_chasms", path), -1 / 16d);
         }
+        SPECIAL_OFFSETS.put(ResourceLocation.fromNamespaceAndPath("dungeonsdelight", "living_lantern"), -2 / 16d);
     }
 
     public static final LanternType VANILLA = new LanternType(ResourceLocation.withDefaultNamespace("lantern"), Blocks.LANTERN);

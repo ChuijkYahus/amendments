@@ -16,13 +16,14 @@ public class WallLanternTextureGen {
 
     private static final ResourceLocation IRON_MOUNT = Amendments.res("block/wall_lanterns/wall_lantern");
     private static final ResourceLocation GOLD_MOUNT = Amendments.res("block/wall_lanterns/wall_lantern_gold");
+    private static final ResourceLocation LIVING_MOUNT = Amendments.res("block/wall_lanterns/wall_lantern_living");
 
     private static final Map<ResourceLocation, ResourceLocation> HANDMADE_MOUNTS = Map.of(
             ResourceLocation.fromNamespaceAndPath("suppsquared", "crimson_lantern"), GOLD_MOUNT,
             ResourceLocation.fromNamespaceAndPath("enderscape", "bulb_lantern"), IRON_MOUNT,
             ResourceLocation.fromNamespaceAndPath("bountifulfares", "feldspar_lantern"), IRON_MOUNT,
             ResourceLocation.fromNamespaceAndPath("goodending", "firefly_lantern"), IRON_MOUNT,
-            ResourceLocation.fromNamespaceAndPath("dungeonsdelight", "living_lantern"), IRON_MOUNT,
+            ResourceLocation.fromNamespaceAndPath("dungeonsdelight", "living_lantern"), LIVING_MOUNT,
             ResourceLocation.fromNamespaceAndPath("darkerdepths", "glowshroom_lantern"), IRON_MOUNT
     );
 
