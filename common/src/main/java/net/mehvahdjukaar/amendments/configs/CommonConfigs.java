@@ -242,7 +242,7 @@ public class CommonConfigs {
         PASSENGER_NO_SUFFOCATION = builder.icon("minecraft:minecart").comment("Prevents entities from taking suffocation damage while riding another entity")
                 .define("passenger_no_suffocation", false);
 
-        PETS_FOLLOW_TELEPORTS = builder.icon("minecraft:bone").comment("Following pets teleport with you instantly when you teleport")
+        PETS_FOLLOW_TELEPORTS = builder.icon("minecraft:bone").comment("Following pets teleport with you instantly when you teleport or go through a portal. Enderpearls will also keep you on your mount")
                 .define("pets_follow_teleports", true);
 
         builder.push("threading_water_swim")
