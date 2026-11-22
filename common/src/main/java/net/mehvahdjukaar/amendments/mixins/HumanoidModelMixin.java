@@ -1,7 +1,7 @@
 package net.mehvahdjukaar.amendments.mixins;
 
-import net.mehvahdjukaar.amendments.client.ThreadingWaterAnimation;
-import net.mehvahdjukaar.amendments.common.entity.IThreadingWaterSwimmer;
+import net.mehvahdjukaar.amendments.client.TreadingWaterAnimation;
+import net.mehvahdjukaar.amendments.common.entity.ITreadingWaterSwimmer;
 import net.mehvahdjukaar.amendments.configs.ClientConfigs;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.world.entity.HumanoidArm;
@@ -19,7 +19,7 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> {
 
     @Unique
     @Nullable
-    private ThreadingWaterAnimation amendments$surfaceSwimAnimation;
+    private TreadingWaterAnimation amendments$surfaceSwimAnimation;
     @Unique
     private float amendments$partialTick;
 
@@ -31,7 +31,7 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> {
     @Inject(method = "prepareMobModel(Lnet/minecraft/world/entity/LivingEntity;FFF)V", at = @At("TAIL"))
     private void amendments$cacheSurfaceSwimAmount(T entity, float limbSwing, float limbSwingAmount, float partialTick, CallbackInfo ci) {
         amendments$surfaceSwimAnimation = ClientConfigs.SURFACE_SWIM_ANIMATION.get() ?
-                ((IThreadingWaterSwimmer) entity).amendments$getThreadingWaterAnim() : null;
+                ((ITreadingWaterSwimmer) entity).amendments$getTreadingWaterAnim() : null;
         amendments$partialTick = partialTick;
     }
 
@@ -39,7 +39,7 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> {
     @Inject(method = "setupAnim(Lnet/minecraft/world/entity/LivingEntity;FFFFF)V", at = @At("TAIL"))
     private void amendments$animateSurfaceSwim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks,
                                                float netHeadYaw, float headPitch, CallbackInfo ci) {
-        ThreadingWaterAnimation animation = amendments$surfaceSwimAnimation;
+        TreadingWaterAnimation animation = amendments$surfaceSwimAnimation;
         //first person hand calls setupAnim again without prepareMobModel
         amendments$surfaceSwimAnimation = null;
         if (animation == null || animation.getAmount(amendments$partialTick) <= 0) {

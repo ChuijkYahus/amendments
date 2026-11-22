@@ -252,7 +252,7 @@ public class ClientConfigs {
         TRADE_BUTTONS = builder.icon("minecraft:emerald").comment("Gives the villager trade buttons the same look loom and stonecutter buttons have")
                 .define("villager_trade_buttons", true);
 
-        builder.push("threading_water_swim");
+        builder.push("treading_water_swim");
         SURFACE_SWIM_ANIMATION = builder.icon("minecraft:water_bucket")
                 .comment("Players and humanoid mobs move their arms and legs like swimming when upright in water")
                 .mainFeature();

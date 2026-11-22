@@ -245,7 +245,7 @@ public class CommonConfigs {
         PETS_FOLLOW_TELEPORTS = builder.icon("minecraft:bone").comment("Following pets teleport with you instantly when you teleport or go through a portal. Enderpearls will also keep you on your mount")
                 .define("pets_follow_teleports", true);
 
-        builder.push("threading_water_swim")
+        builder.push("treading_water_swim")
                 .icon("minecraft:water_bucket");
         SURFACE_SWIMMING = builder
                 .comment("Holding jump in water keeps players at the surface with their head out instead of bobbing up and down")

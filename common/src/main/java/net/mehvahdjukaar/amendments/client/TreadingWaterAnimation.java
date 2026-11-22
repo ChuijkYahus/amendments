@@ -12,7 +12,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-public class ThreadingWaterAnimation {
+public class TreadingWaterAnimation {
     private float amount;
     private float prevAmount;
     private float effort;

@@ -1,9 +1,9 @@
 package net.mehvahdjukaar.amendments.mixins;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.mehvahdjukaar.amendments.client.ThreadingWaterAnimation;
+import net.mehvahdjukaar.amendments.client.TreadingWaterAnimation;
 import net.mehvahdjukaar.amendments.common.SurfaceSwimming;
-import net.mehvahdjukaar.amendments.common.entity.IThreadingWaterSwimmer;
+import net.mehvahdjukaar.amendments.common.entity.ITreadingWaterSwimmer;
 import net.mehvahdjukaar.amendments.configs.CommonConfigs;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.tags.FluidTags;
@@ -20,12 +20,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin implements IThreadingWaterSwimmer {
+public abstract class LivingEntityMixin implements ITreadingWaterSwimmer {
 
     //client only, i hope,
     @Unique
     @Nullable
-    private ThreadingWaterAnimation amendments$surfaceSwimAnimation;
+    private TreadingWaterAnimation amendments$surfaceSwimAnimation;
 
     @Inject(method = "hurt", at = @At("HEAD"), cancellable = true)
     private void amendments$noPassengerSuffocation(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
@@ -58,14 +58,14 @@ public abstract class LivingEntityMixin implements IThreadingWaterSwimmer {
             return;
         }
         if (amendments$surfaceSwimAnimation == null) {
-            amendments$surfaceSwimAnimation = new ThreadingWaterAnimation();
+            amendments$surfaceSwimAnimation = new TreadingWaterAnimation();
         }
 
         amendments$surfaceSwimAnimation.tick(self);
     }
 
     @Override
-    public @Nullable ThreadingWaterAnimation amendments$getThreadingWaterAnim() {
+    public @Nullable TreadingWaterAnimation amendments$getTreadingWaterAnim() {
         return  amendments$surfaceSwimAnimation;
     }
 

@@ -1,2 +1,4 @@
-- added more mod compat for EBE on forge
-- more compat for thrown projectiles to render 3d like snowball (default off, includes environmental mudballs)
+- added new threading water animation when standing on water surface and not swimming
+- improved pet teleport feature
+- fixed a rendering bug with holding torch animation & added more mod compat there
+- fixed an issue with item pickup code
