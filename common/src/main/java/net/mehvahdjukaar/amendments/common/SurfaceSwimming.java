@@ -51,8 +51,30 @@ public class SurfaceSwimming {
 
     //water isnt solid ground. no pushing off it with just your toes in!
     public static boolean canPushOffWater(LivingEntity entity) {
-        if (!CommonConfigs.WATER_JUMP_NEEDS_DEPTH.get() || !(entity instanceof Player player)) return true;
+        if (!(entity instanceof Player player)) {
+            return true;
+        }
+        //if (player.isSwimming()) return true;
+        //if (player.isInWater() && !player.isUnderWater()) return false;
+        if (player.isSwimming()) return canSwimUp(player);
+        if (!CommonConfigs.WATER_JUMP_NEEDS_DEPTH.get()) return true;
         return getDepthBelowWaterline(player) > -0.4 || player.horizontalCollision;
+    }
+
+    public static boolean canStartSwimming(Entity entity) {
+        return entity instanceof Player && isFloatingAtSurface(entity);
+    }
+
+
+    //breaching ends the swim, then sprint starts again right at the surface and you hop like a dolphin
+    public static boolean canSwimUp(Player player) {
+        if (!CommonConfigs.SURFACE_SWIMMING.get() || !player.isSwimming() || player.horizontalCollision) {
+            return true;
+        }
+        //BlockPos above = BlockPos.containing(player.getEyePosition());
+        BlockPos above = BlockPos.containing(player.getX(), player.getY() + 0.9, player.getZ());
+
+        return !player.level().getFluidState(above).isEmpty();
     }
 
     public static boolean canWallKick(LivingEntity entity) {

@@ -1,5 +1,6 @@
 package net.mehvahdjukaar.amendments.mixins;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.mehvahdjukaar.amendments.common.SurfaceSwimming;
 import net.mehvahdjukaar.amendments.configs.CommonConfigs;
 import net.minecraft.world.entity.EntityType;
@@ -27,6 +28,13 @@ public abstract class PlayerMixin extends LivingEntity {
         if (wantsToFloat && SurfaceSwimming.canFloat(self) && SurfaceSwimming.isFloatingAtSurface(self)) {
             SurfaceSwimming.holdAtSurface(self);
         }
+    }
+
+
+    @ModifyExpressionValue(method = "travel", at = @At(value = "FIELD",
+            target = "Lnet/minecraft/world/entity/player/Player;jumping:Z"))
+    private boolean amendments$noSwimBreach(boolean jumping) {
+        return jumping && SurfaceSwimming.canSwimUp((Player) (Object) this);
     }
 
 }
