@@ -314,5 +314,17 @@
   "amendments.configuration.hotbar_slot_animation.wrap": "穿过首尾边缘",
   "amendments.configuration.hotbar_slot_animation.wrap.description": "快捷栏槽位动画是否能穿过首尾边缘",
   "amendments.configuration.hotbar_slot_animation.opaque_behavior": "不透明行为",
-  "amendments.configuration.hotbar_slot_animation.opaque_behavior.description": "槽位选框不透明时动画的行为。NONE为在物品前方移动，IN_BACKGROUND为在物品后方移动，TURNS_OFF会禁用动画"
+  "amendments.configuration.hotbar_slot_animation.opaque_behavior.description": "槽位选框不透明时动画的行为。NONE为在物品前方移动，IN_BACKGROUND为在物品后方移动，TURNS_OFF会禁用动画",
+  "amendments.configuration.projectiles.extra_particles": "额外粒子",
+  "amendments.configuration.projectiles.extra_particles.description": "雪球飞行会留下雪花尾迹，命中时产生更多雪花",
+  "amendments.configuration.treading_water_swim": "踩水游泳",
+  "amendments.configuration.treading_water_swim.surface_swimming": "水面游泳",
+  "amendments.configuration.treading_water_swim.surface_swimming.description": "在水中按住跳跃键可保持在仅将头部露出水面的姿势，而不会上下来回跳动",
+  "amendments.configuration.treading_water_swim.surface_auto_float": "自动浮出水面",
+  "amendments.configuration.treading_water_swim.surface_auto_float.description": "自动保持头部露出水面，无需按住跳跃键。潜行可下潜",
+  "amendments.configuration.treading_water_swim.water_jump_needs_depth": "水中跳跃需要水深足够",
+  "amendments.configuration.treading_water_swim.water_jump_needs_depth.description": "仅允许在岸边或及胸深的水中让身体变为直立姿势",
+  "amendments.configuration.treading_water_swim.enabled.description": "玩家和人形生物在水中直立时也会像在游泳一样挥动手臂",
+  "amendments.configuration.treading_water_swim.leg_splay": "腿部伸展",
+  "amendments.configuration.treading_water_swim.leg_splay.description": "直立游泳时让腿部稍稍向侧面伸展"
 }
