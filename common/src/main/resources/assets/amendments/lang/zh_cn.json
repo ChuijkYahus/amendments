@@ -313,6 +313,6 @@
   "amendments.configuration.hotbar_slot_animation.speed.description": "让快捷栏槽位选框滑动到新位置。数越大，滑动得越快，0为原版动效",
   "amendments.configuration.hotbar_slot_animation.wrap": "穿过首尾边缘",
   "amendments.configuration.hotbar_slot_animation.wrap.description": "快捷栏槽位动画是否能穿过首尾边缘",
-  "amendments.configuration.hotbar_slot_animation.opaque_behavior": "不透明行为",
-  "amendments.configuration.hotbar_slot_animation.opaque_behavior.description": "槽位选框不透明时动画的行为。NONE为在物品前方移动，IN_BACKGROUND为在物品后方移动，TURNS_OFF会禁用动画"
+  "amendments.configuration.hotbar_slot_animation.layer": "层级",
+  "amendments.configuration.hotbar_slot_animation.layer.description": "槽位选框在物品前方还是后方移动。AUTO会在选框材质有背景时移到物品后方"
 }

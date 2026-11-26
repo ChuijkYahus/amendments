@@ -60,7 +60,7 @@ public class ClientConfigs {
     public static final Supplier<Boolean> SURFACE_SWIM_LEG_SPLAY;
     public static final Supplier<Double> HOTBAR_SLOT_ANIMATION_SPEED;
     public static final Supplier<Boolean> HOTBAR_SLOT_ANIMATION_WRAP;
-    public static final Supplier<OpaqueBehavior> HOTBAR_SLOT_OPAQUE_BEHAVIOR;
+    public static final Supplier<SelectionLayer> HOTBAR_SLOT_LAYER;
 
     public static final Supplier<Boolean> PIXEL_CONSISTENT_SIGNS;
     public static final Supplier<List<Block>> SIGN_BLACKLIST;
@@ -265,8 +265,8 @@ public class ClientConfigs {
                 .defineSlider("speed", 2.5d, 0, 5);
         HOTBAR_SLOT_ANIMATION_WRAP = builder.comment("If the hotbar slot animation wraps around the edges")
                 .define("wrap", true);
-        HOTBAR_SLOT_OPAQUE_BEHAVIOR = builder.comment("What the animation does when the selection texture is opaque. NONE keeps it on top of the items, IN_BACKGROUND moves it behind them, TURNS_OFF disables the animation")
-                .define("opaque_behavior", OpaqueBehavior.IN_BACKGROUND);
+        HOTBAR_SLOT_LAYER = builder.comment("Draws the sliding selection in front of or behind the items. AUTO puts it behind when the selection texture has a background")
+                .define("layer", SelectionLayer.AUTO);
         builder.pop();
         builder.pop();
 
