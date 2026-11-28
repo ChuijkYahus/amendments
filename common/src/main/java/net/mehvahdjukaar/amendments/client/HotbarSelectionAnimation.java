@@ -18,7 +18,7 @@ public class HotbarSelectionAnimation {
         var path = ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/hotbar_selection.png");
         try (var stream = manager.open(path); NativeImage image = NativeImage.read(stream)) {
             int middle = image.getPixelRGBA(image.getWidth() / 2, image.getHeight() / 2);
-            selectionOnBackground = (middle >>> 24) > 127;
+            selectionOnBackground = (middle >>> 24) != 0;
         } catch (Exception e) {
             selectionOnBackground = false;
         }

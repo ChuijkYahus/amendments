@@ -13,7 +13,8 @@
     "CompatFarmersDelightHangingCanvasMixin",
     "CompatFarmersDelightSignMixin",
     "CompatFarmersDelightSignRendererMixin",
-    "CompatFDSignEditScreenMixin"
+    "CompatFDSignEditScreenMixin",
+    "LocalPlayerSurfaceSprintMixin"
   ],
   "injectors": {
     "defaultRequire": 1
